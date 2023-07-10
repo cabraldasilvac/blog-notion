@@ -4,7 +4,7 @@ export type Tag = {
     name: string
 }
 
-export type BloPost = {
+export type BlogPost = {
     id: string
     slug: string
     cover: string
@@ -12,4 +12,9 @@ export type BloPost = {
     tags: Tag[]
     description: string
     date: string
+}
+
+export type PostPage = {
+    post: BlogPost
+    markdown: text
 }
