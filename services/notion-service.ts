@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client'
-import { NotionToMarkdown } from 'notion-to-md'
 import { BlogPost, PostPage } from '../@types/schema'
+import { NotionToMarkdown } from 'notion-to-md'
 
 export default class NotionService {
     client: Client
@@ -36,7 +36,7 @@ export default class NotionService {
         })
     }
 
-    async getSingleBlogPost(slug: string): Promise<PostPage> {
+    async getSingleBlogPost(slug?: string): Promise<PostPage> {
         let post, markdown
 
         const database = process.env.NOTION_BLOG_DATABASE_ID ?? ''
@@ -47,7 +47,7 @@ export default class NotionService {
                 property: 'Slug',
                 formula: {
                     string: {
-                        equals: slug, //slug
+                        equals: slug || '', //slug
                     },
                 },
                 //add option for tags in the future
@@ -80,7 +80,7 @@ export default class NotionService {
     private static pageToPostTransformer(page: any): BlogPost {
         let cover = page.cover
 
-        switch (cover.type) {
+        switch (cover) {
             case 'file':
                 cover = page.cover.file
                 break
@@ -98,7 +98,7 @@ export default class NotionService {
             title: page.properties.Name.title[0].plain_text,
             tags: page.properties.Tags.multi_select,
             description: page.properties.Description.rich_text[0].plain_text,
-            date: page.properties.Updated.las_edited_time,
+            date: page.properties.Updated.created_time,
             slug: page.properties.Slug.formula.string,
         }
     }
