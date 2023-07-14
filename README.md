@@ -1,8 +1,14 @@
 # Blog Post
 
+Treinando integração de Notion com Next.js
+
+Projeto em desenvolvimento...
+
+<hr>
+
 ## Getting Started
 
-First, run the development server:
+#### First, run the development server:
 
 ```bash
 npm run dev
